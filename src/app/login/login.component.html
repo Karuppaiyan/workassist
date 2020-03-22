@@ -1,0 +1,43 @@
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
+            
+                <div class="row">
+                    <div class="col-lg-6 col-md-8 mx-auto"> 
+
+                        <div class="card rounded shadow shadow-sm">
+                            <div class="card-header">
+                                <h3 class="mb-0">Work Assist Login</h3>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        
+                                     </div>
+                                    <input class="form-control" #user placeholder="Username" type="text">
+                                </div> <!-- input-group.// -->
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        
+                                     </div>
+                                    <input class="form-control" #pass placeholder="Password" type="password">
+                                </div> <!-- input-group.// -->
+
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <button class="btn btn-success btn-block" (click)="check(user.value, pass.value)">Login</button>
+                                    </div> 
+                                </div>
+                                                               
+                                <br/>
+                                <span>{{ msg }}</span>
+                            </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>

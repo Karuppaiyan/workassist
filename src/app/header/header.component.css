@@ -1,0 +1,80 @@
+.box1{
+    width: 100px;
+    height: 30px;
+    padding-top: 5px;
+    background-color:rgb(181, 24, 121);
+    outline: lightgray 1px solid;
+}
+.box2{
+    width: 100px;
+    height: 30px;
+    padding-top: 5px;
+    background-color:rgb(134, 188, 37);
+    outline: lightgray 1px solid;
+}
+.box3{
+    width: 100px;
+    height: 30px;
+    padding-top: 5px;
+    background-color:rgb(238, 118, 36);
+    outline: lightgray 1px solid;
+}
+.box4{
+    width: 100px;
+    height: 30px;
+    padding-top: 5px;
+    background-color: gray;
+    outline: lightgray 1px solid;
+}
+.box5{
+    width: 100px;
+    height: 30px;
+    padding-top: 5px;
+    background-color:rgb(136, 218, 222);
+    outline:lightgray 1px solid;
+}
+.box6{
+    width: 100px;
+    height: 30px;
+    padding-top: 5px;
+    background-color: rgb(104, 33, 192);
+    outline:lightgray 1px solid;
+}
+.box7{
+    width: 100px;
+    height: 30px;
+    padding-top: 5px;
+    background-color: rgb(74, 74, 73);
+    outline:lightgray 1px solid;
+}
+.box8{
+    width: 100px;
+    height: 30px;
+    padding-top: 5px;
+    background-color:#0CAA41;
+    outline:lightgray 1px solid;
+}
+
+.nav-item{
+    padding-left: 10px;
+    padding-bottom: 10px;
+
+}
+
+.text{
+    font-size: 14px;
+    color: honeydew;
+    text-align: center;
+    align-content: center;
+}
+.nav1{
+   
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    text-align: center;
+    align-items: center;
+}
