@@ -435,7 +435,7 @@ if (args.type === 'EventContainer') {
         type: "Input",
         template: this.dropdowns = new MultiSelect({
           dataSource: this.corporateData,
-          width: 250,
+          width: "250px",
           placeholder: 'Select Corporate',
           mode: "CheckBox",
           showDropDownIcon: true,

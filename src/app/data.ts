@@ -178,34 +178,118 @@ export let blackData: Object[] = [
 // tslint:disable-next-line:ban-types
 export let usersData: Object[] = [
     {
-        text: 'test_1',
+        text: 'G Balika',
         id: 1,
         CorporateGroupId:1,
-        type: '123'
+        type: '3015'
     },
 {
-        text: 'test_2',
+        text: 'Kiruthiga',
         id: 2,
         CorporateGroupId:1,
-        type: '123'
+        type: '3165'
     },
 {
-        text: 'test_3',
+        text: 'Kalaivani',
         id: 3,
         CorporateGroupId:1,
-        type: '123'
+        type: '3077'
     },
 {
-        text: 'test_4',
+        text: 'Kavya',
         id: 4,
         CorporateGroupId:1,
-        type: '123'
+        type: '3008'
     },
 {
-        text: 'test_5',
+        text: 'Baranivasan',
         id: 5,
         CorporateGroupId:1,
-        type: '123'
+        type: '1124'
+    },
+{
+        text: 'Kavitha',
+        id: 8,
+        CorporateGroupId:1,
+        type: '3127'
+    },
+{
+        text: 'Lavanya B',
+        id: 9,
+        CorporateGroupId:1,
+        type: '3065'
+    },
+{
+        text: 'Swetha i',
+        id: 10,
+        CorporateGroupId:1,
+        type: 'i452'
+    },
+{
+        text: 'Shanmugapriya L I',
+        id: 11,
+        CorporateGroupId:1,
+        type: 'I453'
+    },
+{
+        text: 'Praveen T',
+        id: 13,
+        CorporateGroupId:1,
+        type: '3089'
+    },
+{
+        text: 'Thiyagarajan I',
+        id: 14,
+        CorporateGroupId:1,
+        type: 'I445'
+    },
+{
+        text: 'Raghavan',
+        id: 15,
+        CorporateGroupId:1,
+        type: '2329'
+    },
+{
+        text: 'K Bharath Raj',
+        id: 16,
+        CorporateGroupId:1,
+        type: '2967'
+    },
+{
+        text: 'Advani',
+        id: 18,
+        CorporateGroupId:1,
+        type: 'C169'
+    },
+{
+        text: 'Rekhasri.S',
+        id: 19,
+        CorporateGroupId:1,
+        type: '833'
+    },
+{
+        text: 'Anandhi J',
+        id: 20,
+        CorporateGroupId:1,
+        type: '2370'
+    },
+{
+        text: 'Archana K',
+        id: 21,
+        CorporateGroupId:1,
+        type: '2686'
+    },
+{
+        text: 'Karuru Dhamu',
+        id: 22,
+        CorporateGroupId:1,
+        type: '2299'
+    },
+{
+        text: 'Moses',
+        id: 30,
+        CorporateGroupId:1,
+        type: '2756'
     },
 {
         text: 'Sangeetha TC',
