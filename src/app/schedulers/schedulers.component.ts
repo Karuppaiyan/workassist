@@ -406,10 +406,10 @@ if (args.type === 'EventContainer') {
     const colors: Array<string> = ['rgb(96, 242, 56)', 'rgb(254, 194, 0)'];
     if (colors.indexOf(element.style.backgroundColor) !== -1) {
       (element.querySelector('.e-subject') as HTMLElement).style.color = 'red';
-    }
-  });
- }
+      }
+    });
   }
+}
  
 
   /*____________________**____________________*/
@@ -457,23 +457,10 @@ if (args.type === 'EventContainer') {
         };
       args.items.push(exportItem);
       args.items.push(queryLog);
-      args.items.push(corporate);
-
-      
+      //args.items.push(corporate);
       }
   }
- 
-  public corporate (args: any):void {
-    const dropDownList: DropDownList = new DropDownList({
-      dataSource:this.corporateData,
-      fields: { text: 'text', value: 'id' },
-      value: ((args.data) as { [key: string]: Object }).corporate as string,
-      floatLabelType: 'Always', placeholder: 'corporate'
-      });
 
-    return args.items.appendTo(dropDownList);
-
-  }
   /*____________________**____________________*/
   public clicklog(): void {
      window.open('https://docs.google.com/forms/d/e/1FAIpQLSfX90RB4RLLLUd2XCTN80ee8R1CDQPYnVrWhT6_AMCZHPH4Ww/viewform', '_blank');
@@ -503,7 +490,14 @@ if (args.type === 'EventContainer') {
       this.userName = 'Karuppaiyan'; // Here we used static user name for your reference. Kindly map your currently logined username to achieve your scenario.
       this.data =  { Name: this.userName, Email: this.email, IsBlock: this.leave};
       this.dataQuery = new Query().addParams('tokens', this.data as any);
-      this.eventSettings = { dataSource: this.dataManager, query: this.dataQuery,
+      this.eventSettings = { dataSource: this.dataManager, query: this.dataQuery, fields: {
+        id: 'Id',
+        subject: { title: 'Job Number', name: 'Subject' },
+        location: { title: 'Tracking Number', name: 'Tracking-Number' },
+        description: { title: 'Comments', name: 'Description' },
+        startTime: { title: 'From', name: 'StartTime' },
+        endTime: { title: 'To', name: 'EndTime' }
+        },
           allowAdding: this.userScheduler || this.adminScheduler,
           allowEditing: this.userScheduler ? false : true,
           allowDeleting: this.userScheduler || this.adminScheduler
