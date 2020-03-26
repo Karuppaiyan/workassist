@@ -1,7 +1,7 @@
 import { Component, Inject, ViewChild, AfterViewInit, ViewEncapsulation, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { extend, isNullOrUndefined, createElement, L10n, remove, Internationalization, } from '@syncfusion/ej2-base';
+import { extend, isNullOrUndefined, createElement, L10n, remove, Internationalization, EmitType } from '@syncfusion/ej2-base';
 import { FormGroup } from '@angular/forms';
-import { DropDownList, MultiSelectChangeEventArgs } from '@syncfusion/ej2-dropdowns';
+import { DropDownList, MultiSelectChangeEventArgs, FilteringEventArgs, MultiSelect} from '@syncfusion/ej2-dropdowns';
 import { Button, CheckBox } from '@syncfusion/ej2-buttons';
 import { DateTimePicker, ChangeEventArgs} from '@syncfusion/ej2-calendars';
 import { ItemModel } from '@syncfusion/ej2-angular-navigations';
@@ -91,16 +91,17 @@ export class SchedulersComponent implements OnInit {
   public exportToExcel: any;
   public currentEventId: number;
   public endInput: HTMLInputElement;
-  public dropDownListEndTime: DropDownList;
+  public dropdowns: MultiSelect;
   public scheduleObj: ScheduleComponent;
   public eventSettings: EventSettingsModel;
   public empFields = { text: 'text', value: 'id' };
-  public corporateFields = { text: 'corporateText', value: 'Id' };
-  public levelFields = { text: 'levelText', value: 'Id' };
-  public statusFields = { text: 'statusText', value: 'Id' };
+  public corporateFields = { text: 'text', value: 'id' };
+  public levelFields = { text: 'levelText', value: 'id' };
+  public statusFields = { text: 'text', value: 'id' };
   public checkFields = { text: 'text', value: 'id' };
   public mode: string;
   public filterPlaceholder: string;
+  public text: string = "Select a Coporate";
   public popHeight: string = "350px";
   public resources: Object[] = [];
 
@@ -108,48 +109,48 @@ export class SchedulersComponent implements OnInit {
   public orderData: Object = [];
   public group: GroupModel = {
       enableCompactView: false,
-      resources: ['scheduler'],
+      resources: ['Corporate', 'Employee'],
       allowGroupEdit: true
   };
 
   public StatusData = [
 
-    { statusText: '1. Yet To Start', Id: 'Yet-To-Start' },
-    { statusText: '2. In Progress', Id: 'In-Progress' },
-    { statusText: '3. Carry Over', Id: 'Carry-Over' },
-    { statusText: '4. Creative Review', Id: 'Creative-Review' },
-    { statusText: '5. Complete', Id: 'Complete' },
-    { statusText: '6. Waiting for Clarification', Id: 'Waiting-for-Clarification' },
-    { statusText: '7. Break', Id: 'Break' },
-    { statusText: '8. QC Done', Id: 'Qc-Done' }
+    { text: '1. Yet To Start', Status: 'Yet-To-Start' },
+    { text: '2. In Progress', Status: 'In-Progress' },
+    { text: '3. Carry Over', Status: 'Carry-Over' },
+    { text: '4. Creative Review', Status: 'Creative-Review' },
+    { text: '5. Complete', Status: 'Complete' },
+    { text: '6. Waiting for Clarification', Status: 'Waiting-for-Clarification' },
+    { text: '7. Break', Status: 'Break' },
+    { text: '8. QC Done', Status: 'Qc-Done' }
   ];
 
   public corporateData = [
 
-    { corporateText: '1. GHM', Id: 'GHM' },
-    { corporateText: '2. DCA', Id: 'DCA' },
-    { corporateText: '3. TEGNA', Id: 'TEGNA' },
-    { corporateText: '4. DUDA', Id: 'DUDA' }
+    { text: 'GANNETT', id: 1, Expand:false},
+    { text: 'DCA', id: 2, Expand:true},
+    { text: 'TEGNA', id: 3, Expand:false},
+    { text: 'DUDA', id: 4, Expand:false}
   ];
   public levelData = [
-    { levelText: '1. 5', Id: '5' },
-    { levelText: '2. 10', Id: '10' },
-    { levelText: '3. 15', Id: '15' },
-    { levelText: '4. 25', Id: '25' },
-    { levelText: '5. 35', Id: '35' },
-    { levelText: '6. 45', Id: '45' },
-    { levelText: '7. 60', Id: '60' },
-    { levelText: '8. 90', Id: '90' },
-    { levelText: '9. 110', Id: '110' },
-    { levelText: '10. 130', Id: '130' },
-    { levelText: '11. 150', Id: '150' },
-    { levelText: '12. 170', Id: '170' },
-    { levelText: '13. 190', Id: '190' },
-    { levelText: '14. 210', Id: '210' },
-    { levelText: '15. 230', Id: '230' },
-    { levelText: '16. 250', Id: '250' },
-    { levelText: '17. 280', Id: '280' },
-    { levelText: '18. 300', Id: '300' }
+    { levelText: '1. 5', id: '5' },
+    { levelText: '2. 10', id: '10' },
+    { levelText: '3. 15', id: '15' },
+    { levelText: '4. 25', id: '25' },
+    { levelText: '5. 35', id: '35' },
+    { levelText: '6. 45', id: '45' },
+    { levelText: '7. 60', id: '60' },
+    { levelText: '8. 90', id: '90' },
+    { levelText: '9. 110', id: '110' },
+    { levelText: '10. 130', id: '130' },
+    { levelText: '11. 150', id: '150' },
+    { levelText: '12. 170', id: '170' },
+    { levelText: '13. 190', id: '190' },
+    { levelText: '14. 210', id: '210' },
+    { levelText: '15. 230', id: '230' },
+    { levelText: '16. 250', id: '250' },
+    { levelText: '17. 280', id: '280' },
+    { levelText: '18. 300', id: '300' }
   ];
 
   public resourceDataSource = this.dataService.getUsersData();
@@ -205,13 +206,24 @@ export class SchedulersComponent implements OnInit {
     let resourcePredicate;
     // tslint:disable-next-line:prefer-for-of
     for (let a = 0; a < args.value.length; a++) {
-      const predicate = new Predicate('id', 'lessthan', args.value[a]);
-      resourcePredicate = resourcePredicate ? resourcePredicate.or(predicate) : predicate;
+      const predicate = new Predicate('id', 'equal', args.value[a]);
+      resourcePredicate = resourcePredicate
+      ? resourcePredicate.or(predicate)
+      : predicate;
     }
     const resourceQuery = resourcePredicate ? new Query().where(resourcePredicate) : new Query();
     this.scheduleObject.resources[0].query = resourceQuery;
     this.flag = true;
   }
+  /*____________________**____________________*/
+ 
+  public onFiltering: EmitType<FilteringEventArgs>  =  (e: FilteringEventArgs) => {
+    let query = new Query();
+    //frame the query based on search string with filter type.
+    query = (e.text != "") ? query.where("text", "startswith", e.text, true) : query;
+    //pass the filter data source, filter query to updateData method.
+    e.updateData(this.data, query);
+  };
   /*____________________**____________________*/
   public onDataBinding(args: any) {
     // check the resource count
@@ -292,7 +304,7 @@ export class SchedulersComponent implements OnInit {
       case 'Qc-Done':
           (args.element as HTMLElement).style.backgroundColor = 'rgb(74, 74, 73)';
           break;
-      case '8':
+      case 'Leave':
           (args.element as HTMLElement).style.backgroundColor = 'teal';
           (args.element as HTMLElement).style.textAlign = 'center';
           this.leave = true;
@@ -315,51 +327,91 @@ export class SchedulersComponent implements OnInit {
   /*____________________**____________________*/
   public onPopupOpen(args: PopupOpenEventArgs): void {
     if (args.type === 'Editor') {
-          this.orderData = Object.assign({}, args.data);
-          // this.getDataDiff(new Date(this.startDate), new Date(this.endDate));
-          // let endDate: HTMLInputElement = args.element.querySelector('#Level') as HTMLInputElement;
-          // console.log(endDate);
+      if (this.adminScheduler === false) {
+        const remov = args.element.querySelector('.e-resources-row') as HTMLElement;
+        const removtime = args.element.querySelector('.e-start-end-row') as HTMLElement;
+        const removtimezone = args.element.querySelector('.e-all-day-time-zone-row') as HTMLElement;
+        const removeditor = args.element.querySelector('.e-editor') as HTMLElement;
+        removtimezone.style.display = 'none';
+        removtime.style.display = 'none';
+        remov.style.display = 'none';
+        removeditor.style.display = 'none';
+      } else if (this.userScheduler === false) {
+        const remov = args.element.querySelector('.e-resources-row') as HTMLElement;
+        const removtimezone = args.element.querySelector('.e-all-day-time-zone-row') as HTMLElement;
+        const removeditor = args.element.querySelector('.e-editor') as HTMLElement;
+        const endhour = args.element.querySelector('.e-end-container') as HTMLElement;
+        removtimezone.style.display = 'block';
+        remov.style.display = 'block';
+        removeditor.style.display = 'block';
+        endhour.style.display = 'block';
+      }
 
-          /*
-           let startElement: HTMLInputElement = args.element.querySelector('#StartTime') as HTMLInputElement;
-            if (!startElement.classList.contains('e-datetimepicker')) {
-                new DateTimePicker({ value: new Date(startElement.value) || new Date() }, startElement);
-                console.log(startElement.value);
-                this.startDate = startElement.value;
-            }
-           let endElement: HTMLInputElement = args.element.querySelector('#EndTime') as HTMLInputElement;
-            if (!endElement.classList.contains('e-datetimepicker')) {
-                new DateTimePicker({ value: new Date(endElement.value) || new Date() }, endElement);
-                console.log(endElement.value);
-                this.endDate = endElement.value;
-            }
-            */
+      // Create required custom elements in initial time
+      if (!args.element.querySelector('.corporate-field-row')) {
+          const row: HTMLElement = createElement('div', { className: 'corporate-field-row' });
+          const formElement: HTMLElement = args.element.querySelector('.e-schedule-form');
+          formElement.firstChild.insertBefore(row, args.element.querySelector('.e-start-end-row'));
+          const container: HTMLElement = createElement('div', { className: 'corporate-field-container' });
 
+          const inputEle: HTMLInputElement = createElement('input', {
+              className: 'e-field', attrs: { name: 'Status' }
+          }) as HTMLInputElement;
 
-          if (this.adminScheduler === false) {
-            const resourceElement1: HTMLInputElement = args.element.querySelector('#EndTime') as HTMLInputElement;
-            // resourceElement1.disabled = true;
+          container.appendChild(inputEle);
+          row.appendChild(container);
 
-          } else if (this.userScheduler === false) {
-            const resourceElement2: HTMLInputElement = args.element.querySelector('#EndTime') as HTMLInputElement;
-            // resourceElement2.hidden = true;
-          }
-          const resourceElement: HTMLInputElement = args.element.querySelector('#EmployeeId') as HTMLInputElement;
-          // resourceElement.setAttribute('name', 'EmployeeId');
-
-          const statusElement: HTMLInputElement = args.element.querySelector('#Status') as HTMLInputElement;
-          // statusElement.setAttribute('name', 'Status');
-
-         // const endElement: HTMLInputElement = args.element.querySelector('#EndTime') as HTMLInputElement;
-
-          // tslint:disable-next-line:max-line-length
-          // tslint:disable-next-line:one-variable-per-declaration
-          // const endElement: DateTimePicker = (document.querySelector('#EndTime') as any);
-          // tslint:disable-next-line:no-unused-expression
-          // console.log(endElement);
-    }
-
+          const dropDownList: DropDownList = new DropDownList({
+              dataSource:this.StatusData,
+              fields: { text: 'text', value: 'Status' },
+              value: ((args.data) as { [key: string]: Object }).Status as string,
+              floatLabelType: 'Always', placeholder: 'Status'
+          });
+          
+          dropDownList.appendTo(inputEle);
+          inputEle.setAttribute('name', 'Status');
+      }
   }
+
+if (args.type === 'QuickInfo') {
+      if (args.target.classList.contains('e-work-cells') || args.target.classList.contains('e-header-cells')) {
+       // this.scheduleObj.quickPopup.quickPopupHide();
+        args.cancel = true;
+      } else if (args.target.classList.contains('e-appointment')) {
+        (args.element as HTMLElement).style.boxShadow = `1px 2px 5px 0 ${(args.target as HTMLElement).style.backgroundColor}`;
+      }
+}
+if (args.type === 'EditEventInfo') {
+  if (!args.element.querySelector('.e-popup-content-row')) {
+    const row: HTMLElement = createElement('div', { className: 'e-popup-content-row' });
+    const container: HTMLElement = createElement('div', { className: 'e-popup-content-container' });
+
+    const formElement: HTMLElement = args.element.querySelector('.e-schedule-form');
+    formElement.firstChild.insertBefore(row, args.element.querySelector('.e-popup-content'));
+
+    const inputElem: HTMLInputElement = createElement('button', {
+    className: 'e-field', attrs: { name: 'button'}}) as HTMLInputElement;
+    inputElem.id = 'myButton';
+    inputElem.innerHTML = 'Start';
+    inputElem.style.background = '#4FFF8F';
+
+    container.appendChild(inputElem);
+    row.appendChild(container);
+  }
+
+}
+if (args.type === 'EventContainer') {
+  const eventElements: NodeListOf<HTMLElement> = args.element.querySelectorAll('.e-appointment');
+  eventElements.forEach((element: HTMLElement) => {
+    const colors: Array<string> = ['rgb(96, 242, 56)', 'rgb(254, 194, 0)'];
+    if (colors.indexOf(element.style.backgroundColor) !== -1) {
+      (element.querySelector('.e-subject') as HTMLElement).style.color = 'red';
+    }
+  });
+ }
+  }
+ 
+
   /*____________________**____________________*/
   public onActionBegin(args: any): void {
     if (args.requestType === 'eventCreate') {
@@ -377,6 +429,24 @@ export class SchedulersComponent implements OnInit {
         cssClass: 'e-excel-export',
         click: this.clicklog.bind(this)
       };
+
+      const corporate: ItemModel = {
+        align: "Left",
+        type: "Input",
+        template: this.dropdowns = new MultiSelect({
+          dataSource: this.corporateData,
+          width: 250,
+          placeholder: 'Select Corporate',
+          mode: "CheckBox",
+          showDropDownIcon: true,
+          showSelectAll: true,
+          popupHeight: "350px",
+          fields: { text: "text", value: "id" },
+          change: function (args) {
+            this.onChangeResource(args);
+          }
+        }),        
+      };
       const exportItem: ItemModel = {
           align: 'Right',
           showTextOn: 'Both',
@@ -387,7 +457,22 @@ export class SchedulersComponent implements OnInit {
         };
       args.items.push(exportItem);
       args.items.push(queryLog);
+      args.items.push(corporate);
+
+      
       }
+  }
+ 
+  public corporate (args: any):void {
+    const dropDownList: DropDownList = new DropDownList({
+      dataSource:this.corporateData,
+      fields: { text: 'text', value: 'id' },
+      value: ((args.data) as { [key: string]: Object }).corporate as string,
+      floatLabelType: 'Always', placeholder: 'corporate'
+      });
+
+    return args.items.appendTo(dropDownList);
+
   }
   /*____________________**____________________*/
   public clicklog(): void {

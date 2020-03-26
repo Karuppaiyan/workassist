@@ -1,24 +1,28 @@
 <div class="control-section">
     <div class="col-lg-12 content-wrapper">
         <app-header></app-header>
+        <!--
+        <ejs-dropdownlist id='ddlelement' #samples [dataSource]='corporateData' [fields]='fields' [placeholder]='text' [allowFiltering]='true' (filtering)='onFiltering($event)'></ejs-dropdownlist>
         <ejs-multiselect id='multiselect-checkbox' #checkbox [dataSource]='resources' [placeholder]='checkWaterMark' [fields]='checkFields'
                 [mode]='mode' [popupHeight]='popHeight' [showDropDownIcon]='true' showSelectAll='true' (change)='onChangeResource($event)' [filterBarPlaceholder]='filterPlaceholder'></ejs-multiselect>
-
+        -->
         <ejs-schedule #scheduleObject width='auto' height='auto' cssClass='schedule-excel-export' cssClass='schedule-block-events' cssClass='timeline-resource'
             [currentView]="currentView" [selectedDate]="selectedDate" [group]="group"
             [eventSettings]="eventSettings" (eventRendered)="OnEventRendered($event)"
             (actionBegin)="onActionBegin($event)" (renderCell)="onRenderCell($event)" [showQuickInfo]='showQuickInfo' [timeScale]='timeScale'
             (popupOpen)='onPopupOpen($event)' [showHeaderBar]="showHeaderBar" [rowAutoHeight]='rowAutoHeight' [allowDragAndDrop]='allowDragAndDrop' [allowResizing] = 'allowResizing' startHour ='05:00' endHour='20:00'>
             <e-resources>
-                <e-resource field='EmployeeId' title='scheduler' [dataSource]='resourceDataSource'
-                    [allowMultiple]='allowMultiple' name='scheduler' textField='text' idField='id'>
+                <e-resource field='CorporateID' title='Corporate Name' [dataSource]='corporateData'
+                    name='Corporate' textField='text' idField='id' expandedField='Expand'>
                 </e-resource>
-                
+                <e-resource field='Employee' title='Employee Name' [dataSource]='resourceDataSource'
+                 [allowMultiple]='allowMultiple' name='Employee' textField='text' idField='id'  groupIDField='CorporateGroupId'>
+                </e-resource>
             </e-resources>
             <e-views>
                 <e-view option="TimelineDay" [readonly]="isReadOnly"></e-view>
             </e-views>
-            
+            <!--
             <ng-template #editorTemplate let-data>
                 <div ngForm #orderForm="ngForm">
               <table *ngIf="data != undefined" class="custom-event-editor" width="100%" cellpadding="5">
@@ -89,6 +93,7 @@
               </table>
               </div>
           </ng-template>
+          -->
             <ng-template #resourceHeaderTemplate let-data>
                 <div class='template-wrap'>
                     <div class="name">{{data.resourceData.text}}</div>

@@ -5,7 +5,6 @@ const path = require("path");
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const URL = "mongodb://karuppaiyan:grafix123@ds047197.mlab.com:47197/workassist";
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.listen(process.env.PORT || 5000, function(){

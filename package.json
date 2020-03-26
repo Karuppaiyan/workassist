@@ -33,6 +33,7 @@
     "@syncfusion/ej2-angular-schedule": "^17.3.26",
     "@syncfusion/ej2-base": "^17.3.26",
     "@syncfusion/ej2-ng-dropdowns": "^16.2.50",
+    "@syncfusion/ej2-ng-splitbuttons": "^16.2.50",
     "express": "^4.17.1",
     "mongodb": "^3.4.1",
     "rxjs": "~6.4.0",
