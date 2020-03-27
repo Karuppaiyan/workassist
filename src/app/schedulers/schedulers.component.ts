@@ -457,7 +457,7 @@ if (args.type === 'EventContainer') {
         };
       args.items.push(exportItem);
       args.items.push(queryLog);
-      //args.items.push(corporate);
+      // args.items.push(corporate);
       }
   }
 
