@@ -1,25 +1,28 @@
 
 // Start the app by listening on the default Heroku port
-var MongoClient = require('mongodb').MongoClient;
+const MongoClient = require('mongodb').MongoClient;
 const path = require("path");
 const express = require('express');
 const bodyParser = require('body-parser');
+const URL = 'mongodb://localhost:27017/';
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
+
 app.listen(process.env.PORT || 5000, function(){
     console.log("Express server listng ening on port %d in %s mode", this.address().port, app.settings.env);
   });
 
 app.use(express.static(__dirname + '/workassist'));
+
 app.get('/*', function(req,res){
     res.sendFile(path.join(__dirname, 'workassist', 'index.html'))
     });
 ///
-MongoClient.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, function (err, db) {
+MongoClient.connect(/*process.env.MONGODB_URI*/ URL, { useNewUrlParser: true }, function (err, db) {
     console.log("Connected correctly to server");
     if (err) throw err;
-    var dbo = db.db("workassist");    
+    var dbo = db.db("Employees");    
     app.use(function (req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -30,6 +33,10 @@ MongoClient.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, function
         dbo.collection('ScheduleData').find(query).toArray((err, cus) => {
             res.send(cus);
         });
+    });
+
+    app.post("/search", (req, res) => {
+        console.log(req.body);
     });
 
     app.post("/batchdata", (req, res) => {

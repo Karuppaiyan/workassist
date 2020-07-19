@@ -178,255 +178,28 @@ export let blackData: Object[] = [
 // tslint:disable-next-line:ban-types
 export let usersData: Object[] = [
     {
-        text: 'G Balika',
+        text: 'test 1',
         id: 1,
         CorporateGroupId:1,
         type: '3015'
     },
+
 {
-        text: 'Kiruthiga',
-        id: 2,
-        CorporateGroupId:1,
-        type: '3165'
-    },
-{
-        text: 'Kalaivani',
-        id: 3,
-        CorporateGroupId:1,
-        type: '3077'
-    },
-{
-        text: 'Kavya',
-        id: 4,
-        CorporateGroupId:1,
-        type: '3008'
-    },
-{
-        text: 'Baranivasan',
-        id: 5,
-        CorporateGroupId:1,
-        type: '1124'
-    },
-{
-        text: 'Kavitha',
-        id: 8,
-        CorporateGroupId:1,
-        type: '3127'
-    },
-{
-        text: 'Lavanya B',
-        id: 9,
-        CorporateGroupId:1,
-        type: '3065'
-    },
-{
-        text: 'Swetha i',
-        id: 10,
-        CorporateGroupId:1,
-        type: 'i452'
-    },
-{
-        text: 'Shanmugapriya L I',
-        id: 11,
-        CorporateGroupId:1,
-        type: 'I453'
-    },
-{
-        text: 'Praveen T',
-        id: 13,
-        CorporateGroupId:1,
-        type: '3089'
-    },
-{
-        text: 'Thavaselvam P',
-        id: 14,
-        CorporateGroupId:1,
-        type: '3028'
-    },
-{
-        text: 'Raghavan',
-        id: 15,
-        CorporateGroupId:1,
-        type: '2329'
-    },
-{
-        text: 'K Bharath Raj',
-        id: 16,
-        CorporateGroupId:1,
-        type: '2967'
-    },
-{
-        text: 'Advani',
-        id: 18,
-        CorporateGroupId:1,
-        type: 'C169'
-    },
-{
-        text: 'Rekhasri.S',
-        id: 19,
-        CorporateGroupId:1,
-        type: '833'
-    },
-{
-        text: 'Anandhi J',
-        id: 20,
-        CorporateGroupId:1,
-        type: '2370'
-    },
-{
-        text: 'Archana K',
-        id: 21,
-        CorporateGroupId:1,
-        type: '2686'
-    },
-{
-        text: 'Karuru Dhamu',
-        id: 22,
-        CorporateGroupId:1,
-        type: '2299'
-    },
-{
-        text: 'Moses',
-        id: 30,
-        CorporateGroupId:1,
-        type: '2756'
-    },
-{
-        text: 'Sangeetha TC',
+        text: 'test 2',
         id: 36,
         CorporateGroupId:2,
         type: 'TC2942'
     },
 {
-        text: 'Sundaram',
-        id: 37,
-        CorporateGroupId:2,
-        type: '1647'
-    },
-{
-        text: 'Buvaneshwari Meena N K',
-        id: 38,
-        CorporateGroupId:2,
-        type: '2723'
-    },
-{
-        text: 'Ravi R',
-        id: 40,
-        CorporateGroupId:2,
-        type: '1586'
-    },
-{
-        text: 'Krish Karthik',
-        id: 47,
-        CorporateGroupId:2,
-        type: '2410'
-    },
-{
-        text: 'Raksha',
-        id: 48,
-        CorporateGroupId:2,
-        type: '2922'
-    },
-{
-        text: 'Jayvarsha C',
-        id: 49,
-        CorporateGroupId:2,
-        type: 'C171'
-    },
-    {
-        text: 'Tharabai',
-        id: 50,
-        CorporateGroupId:2,
-        type: 'C172'
-    },
-    
-{
-        text: 'Logesh Venkatesan',
-        id: 51,
-        CorporateGroupId:2,
-        type: '3063'
-    },
-{
-        text: 'Thiruselvan',
-        id: 52,
-        CorporateGroupId:2,
-        type: '2014'
-    },
-{
-        text: 'Karthikeyan S',
-        id: 53,
-        CorporateGroupId:2,
-        type: '3064'
-    },
-{
-        text: 'Usha M',
-        id: 54,
-        CorporateGroupId:2,
-        type: '1122'
-    },
-{
-        text: 'Akshyaa',
-        id: 55,
-        CorporateGroupId:2,
-        type: '3027'
-    },
-{
-        text: 'Chandru Haribabu AC',
+        text: 'test 3',
         id: 61,
         CorporateGroupId:3,
         type: 'AC2699'
     },
-{
-        text: 'Keerthana',
-        id: 62,
-        CorporateGroupId:3,
-        type: '2683'
-    },
-{
-        text: 'Siva',
-        id: 63,
-        CorporateGroupId:3,
-        type: '2441'
-    },
-{
-        text: 'Pravin Raj D',
-        id: 65,
-        CorporateGroupId:3,
-        type: '1640'
-    },
-{
-        text: 'Mohana Priya',
-        id: 66,
-        CorporateGroupId:3,
-        type: '2687'
-    },
-{
-        text: 'Venkatesh',
-        id: 67,
-        CorporateGroupId:3,
-        type: '1809'
-    },
+
 {
         text: 'test',
         id: 78,
-        CorporateGroupId:4,
-        type: '123'
-    },
-{
-        text: 'test',
-        id: 79,
-        CorporateGroupId:4,
-        type: '123'
-    },
-{
-        text: 'test',
-        id: 80,
-        CorporateGroupId:4,
-        type: '123'
-    },
-{
-        text: 'test',
-        id: 81,
         CorporateGroupId:4,
         type: '123'
     }

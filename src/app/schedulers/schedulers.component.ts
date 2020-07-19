@@ -9,6 +9,10 @@ import { QuickPopups } from '@syncfusion/ej2-schedule/src/schedule/popups/quick-
 import { ghmData, dcaData, tegnaData } from '../data';
 import {
   ScheduleComponent,
+  DayService,
+  WeekService,
+  WorkWeekService,
+  MonthService,
   DragAndDropService,
   TimelineViewsService,
   EventRenderedArgs,
@@ -26,7 +30,7 @@ import {
   TimeScaleModel,
   EJ2Instance
 } from '@syncfusion/ej2-angular-schedule';
-import { DataManager, Query, UrlAdaptor, Predicate } from '@syncfusion/ej2-data';
+import { DataManager, Query, UrlAdaptor, Predicate, WebApiAdaptor } from '@syncfusion/ej2-data';
 import { from } from 'rxjs';
 import { DataSourceService } from '../data-source.service';
 import { Key } from 'protractor';
@@ -47,7 +51,7 @@ L10n.load({
   templateUrl: './schedulers.component.html',
   styleUrls: ['./schedulers.component.css'],
   encapsulation: ViewEncapsulation.None,
-  providers: [TimelineViewsService, ResizeService, DragAndDropService]
+  providers: [DayService, WeekService, WorkWeekService, MonthService, TimelineViewsService, ResizeService, DragAndDropService]
 })
 export class SchedulersComponent implements OnInit {
 
@@ -74,9 +78,11 @@ export class SchedulersComponent implements OnInit {
   public allowMultiple = false;
   public allowDragAndDrop = false;
   public allowResizing = false;
+  public dayInterval: number = 3;
+  public weekInterval: number = 2;
   // tslint:disable-next-line:ban-types
   public isReadOnly: Boolean;
-  public currentView: View = 'TimelineDay';
+  public currentView: View = 'Week';
   public timeScale: TimeScaleModel = { enable: true, interval: 60, slotCount: 2 };
   public email: string;
   public userName: string;
@@ -103,7 +109,8 @@ export class SchedulersComponent implements OnInit {
   public filterPlaceholder: string;
   public text: string = "Select a Coporate";
   public popHeight: string = "350px";
-  public resources: Object[] = [];
+  public resourcesdata: Object[] = [];
+  public searchText;
 
   // tslint:disable-next-line:ban-types
   public orderData: Object = [];
@@ -127,10 +134,10 @@ export class SchedulersComponent implements OnInit {
 
   public corporateData = [
 
-    { text: 'GANNETT', id: 1, Expand:false},
-    { text: 'DCA', id: 2, Expand:true},
-    { text: 'TEGNA', id: 3, Expand:false},
-    { text: 'DUDA', id: 4, Expand:false}
+    { text: 'GROUP 1', id: 1, Expand:true},
+    { text: 'GROUP 2', id: 2, Expand:true},
+    { text: 'GROUP 3', id: 3, Expand:true},
+    { text: 'GROUP 4', id: 4, Expand:true}
   ];
   public levelData = [
     { levelText: '1. 5', id: '5' },
@@ -155,9 +162,15 @@ export class SchedulersComponent implements OnInit {
 
   public resourceDataSource = this.dataService.getUsersData();
 
+  public resourceDataSource1: DataManager = new DataManager({
+    url: 'https://api.jsonbin.io/b/5e924d47172eb6438962660e/3',
+    adaptor: new WebApiAdaptor,
+    crossDomain: true
+  });
+
   private dataManager: DataManager = new DataManager({
-    url: 'https://workassist.herokuapp.com/getdata',
-    crudUrl: 'https://workassist.herokuapp.com/batchdata',
+    url: 'http://localhost:5000/GetData',
+    crudUrl: 'http://localhost:5000/BatchData',
     // tslint:disable-next-line:new-parens
     adaptor: new UrlAdaptor
   });
@@ -202,7 +215,7 @@ export class SchedulersComponent implements OnInit {
   }
   /*____________________**____________________*/
   public onChangeResource(args: MultiSelectChangeEventArgs): void {
-    this.scheduleObject.resources[0].dataSource = this.resourceDataSource;
+    this.scheduleObject.resourcesdata[0].dataSource = this.resourceDataSource;
     let resourcePredicate;
     // tslint:disable-next-line:prefer-for-of
     for (let a = 0; a < args.value.length; a++) {
@@ -212,7 +225,7 @@ export class SchedulersComponent implements OnInit {
       : predicate;
     }
     const resourceQuery = resourcePredicate ? new Query().where(resourcePredicate) : new Query();
-    this.scheduleObject.resources[0].query = resourceQuery;
+    this.scheduleObject.resourcesdata[0].query = resourceQuery;
     this.flag = true;
   }
   /*____________________**____________________*/
@@ -220,7 +233,7 @@ export class SchedulersComponent implements OnInit {
   public onFiltering: EmitType<FilteringEventArgs>  =  (e: FilteringEventArgs) => {
     let query = new Query();
     //frame the query based on search string with filter type.
-    query = (e.text != "") ? query.where("text", "startswith", e.text, true) : query;
+    query = (e.text != '') ? query.where('text', 'contains', e.text, true) : query;
     //pass the filter data source, filter query to updateData method.
     e.updateData(this.data, query);
   };
@@ -267,6 +280,10 @@ export class SchedulersComponent implements OnInit {
       .getTime()).setMinutes(endDate.getMinutes() + Number(endtimehour))));
       console.log(endDate);
     }
+  }
+
+  public refresh(){
+    this.scheduleObject.refresh();
   }
   /*____________________**____________________*/
   public getDataDiff(startDate, endDate) {
@@ -481,7 +498,7 @@ if (args.type === 'EventContainer') {
   // custom code end
   public ngOnInit() {
       this.selectedDate = new Date();
-      this.resources = this.resourceDataSource;
+      this.resourcesdata = this.resourceDataSource;
       this.mode = "CheckBox";
       this.filterPlaceholder = "Search Employee Name";
       // tslint:disable-next-line:max-line-length

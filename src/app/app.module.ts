@@ -35,6 +35,8 @@ import { DataSourceService } from './data-source.service';
 import { from } from 'rxjs';
 import { SchedulersComponent } from './schedulers/schedulers.component';
 
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 const routes: Routes = [
     { path: 'admin', component: AdminComponent, canActivate: [AuthguardGuard] },
     { path: 'user', component: UserComponent, canActivate: [AuthguardGuard] },
@@ -64,6 +66,7 @@ const routes: Routes = [
         ButtonAllModule,
         BrowserModule,
         FormsModule,
+        Ng2SearchPipeModule,
         RouterModule.forRoot(
             routes,
             { enableTracing: true } // <-- debugging purposes only
