@@ -79,7 +79,12 @@ animation: FadeIn 1s ease-in;
 .timeline-resource.e-schedule .e-block-appointment .subject {
     text-align: center;
 }
-
+.timeline-resource.e-schedule .template-wrap>div {
+    flex: 0 0 100%;
+}
+.timeline-resource.e-schedule .template-wrap>div:first-child {
+    border-right: 0;
+}
 
 
 

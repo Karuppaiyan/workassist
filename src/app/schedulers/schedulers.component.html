@@ -91,12 +91,14 @@
               </div>
           </ng-template>
           -->
-            <ng-template #resourceHeaderTemplate *ngFor ="let data of resourceData">
+       
+            <ng-template #resourceHeaderTemplate let-data>
                 <div class='template-wrap'>
                     <div class="name">{{data.resourceData.text}}</div>
                     <div class="type">{{data.resourceData.type}}</div>
                 </div>
-            </ng-template>          
+            </ng-template>
+              
         </ejs-schedule>
         <app-footer></app-footer>
     </div>

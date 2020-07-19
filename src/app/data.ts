@@ -183,14 +183,50 @@ export let usersData: Object[] = [
         CorporateGroupId:1,
         type: '3015'
     },
+    {
+        text: 'test 2',
+        id: 1,
+        CorporateGroupId:1,
+        type: '3015'
+    },
+    {
+        text: 'test 3',
+        id: 1,
+        CorporateGroupId:1,
+        type: '3015'
+    },
 
 {
+        text: 'test 1',
+        id: 36,
+        CorporateGroupId:2,
+        type: 'TC2942'
+    },
+    {
         text: 'test 2',
         id: 36,
         CorporateGroupId:2,
         type: 'TC2942'
     },
+    {
+        text: 'test 3',
+        id: 36,
+        CorporateGroupId:2,
+        type: 'TC2942'
+    },
 {
+        text: 'test 1',
+        id: 61,
+        CorporateGroupId:3,
+        type: 'AC2699'
+    },
+    {
+        text: 'test 2',
+        id: 61,
+        CorporateGroupId:3,
+        type: 'AC2699'
+    },
+    {
         text: 'test 3',
         id: 61,
         CorporateGroupId:3,
@@ -198,7 +234,19 @@ export let usersData: Object[] = [
     },
 
 {
-        text: 'test',
+        text: 'test 1',
+        id: 78,
+        CorporateGroupId:4,
+        type: '123'
+    },
+    {
+        text: 'test 2',
+        id: 78,
+        CorporateGroupId:4,
+        type: '123'
+    },
+    {
+        text: 'test 3',
         id: 78,
         CorporateGroupId:4,
         type: '123'

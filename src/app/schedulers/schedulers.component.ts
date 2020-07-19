@@ -87,6 +87,7 @@ export class SchedulersComponent implements OnInit {
   public email: string;
   public userName: string;
   public data;
+  public resourcedata;
   public dataQuery;
   public endtimehour;
   public startend: any;
