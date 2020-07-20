@@ -19,7 +19,7 @@ app.get('/*', function(req,res){
     res.sendFile(path.join(__dirname, 'workassist', 'index.html'))
     });
 ///
-MongoClient.connect(/*process.env.MONGODB_URI*/ URL, { useNewUrlParser: true }, function (err, db) {
+MongoClient.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, function (err, db) {
     console.log("Connected correctly to server");
     if (err) throw err;
     var dbo = db.db("Employees");    
