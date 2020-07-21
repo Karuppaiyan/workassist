@@ -170,8 +170,8 @@ export class SchedulersComponent implements OnInit {
   });
 
   private dataManager: DataManager = new DataManager({
-    url: 'http://localhost:5000/getdata',
-    crudUrl: 'http://localhost:5000/batchdata',
+    url: '/getdata',
+    crudUrl: '/batchdata',
     // tslint:disable-next-line:new-parens
     adaptor: new UrlAdaptor
   });
