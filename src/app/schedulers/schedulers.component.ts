@@ -170,8 +170,8 @@ export class SchedulersComponent implements OnInit {
   });
 
   private dataManager: DataManager = new DataManager({
-    url: '/getdata',
-    crudUrl: '/batchdata',
+    url: 'https://workassist.herokuapp.com/getdata',
+    crudUrl: 'https://workassist.herokuapp.com/batchdata',
     // tslint:disable-next-line:new-parens
     adaptor: new UrlAdaptor
   });
