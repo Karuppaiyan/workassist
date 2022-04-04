@@ -4,7 +4,7 @@ const path = require("path");
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-var url = "mongodb://karuppaiyan:grafix123@ds046667.mlab.com:46667/2adpro";
+const URL = 'mongodb+srv://scheduler:grafix123@cluster0.f81tv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.listen(process.env.PORT || 5000, function(){
@@ -16,7 +16,7 @@ app.get('/*', function(req,res){
     });
 
 ///
-MongoClient.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, function (err, db) {
+MongoClient.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true, }, function (err, db) {
     console.log("Connected correctly to server");
     if (err) throw err;
     var dbo = db.db("2adpro");    
