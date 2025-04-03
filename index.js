@@ -4,7 +4,7 @@ const path = require("path");
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const URL = 'mongodb+srv://scheduler:grafix123@cluster0.f81tv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const URL = 'mongodb+srv://scheduler:grafix123@cluster0.f81tv.mongodb.net/?retryWrites=true&w=majority';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.listen(process.env.PORT || 5000, function(){
